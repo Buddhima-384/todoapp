@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+
 import '../models/todo.dart';
 
 class TodoItem extends StatelessWidget {
   final Todo todo;
   final Function onclick;
   final Function onDelete;
-  
+
   const TodoItem({
     Key? key,
     required this.todo,
@@ -21,7 +22,31 @@ class TodoItem extends StatelessWidget {
         color: const Color.fromARGB(255, 2, 40, 71),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: const Placeholder(fallbackHeight: 60), // Remove this Placeholder
+      child: ListTile(
+        onTap: () {
+          onclick();
+        },
+        leading: Icon(
+          todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
+          color: Colors.white,
+        ),
+        title: Text(
+          todo.title,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            decoration: todo.isDone
+                ? TextDecoration.lineThrough
+                : TextDecoration.none,
+          ),
+        ),
+        trailing: IconButton(
+          icon: const Icon(Icons.delete, color: Colors.white),
+          onPressed: () {
+            onDelete();
+          },
+        ),
+      ), // Remove this Placeholder
       /*
       TODO 1: Replace the Placeholder above with a ListTile.
       
